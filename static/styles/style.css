@@ -1,0 +1,19 @@
+* {
+  outline: none;
+}
+
+body {
+  font-family: Montserrat, serif;
+  font-weight: 400;
+}
+
+.rating-buttons button {
+  width: 75px;
+  height: 75px;
+  background: transparent;
+  border: none;
+}
+
+.rating-buttons img {
+  width: 100%;
+}
