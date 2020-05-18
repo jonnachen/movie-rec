@@ -54,7 +54,7 @@ a.logo span {
 
 .logo:hover:before {
   width: 100%;
-  background: #abd8fa;
+  background: rgba(171, 216, 250, 0.8);
 }
 
 .logo:active {
@@ -101,11 +101,6 @@ form {
   border-radius: 13%;
 }
 
-
-
-.rating-buttons#unknown button img {
-}
-
 .rating-buttons button:hover{
   filter: brightness(110%);
 }
@@ -116,10 +111,4 @@ form {
 
 .rating-buttons img {
   width: 100%;
-}
-
-#dislike {
-}
-
-#like {
 }

@@ -8,46 +8,58 @@
 
 </div>
 
-<!-- buttons -->
-<form action='/get-rating' method="POST">
-  <a href=# class="rating-buttons" id="dislike"><button><img
-        src="{{url_for('static', filename='images/x_button.png')}}" /></button></a>
+<form action='#' method="GET" name="ratingForm">
 
-  <a href=# class="rating-buttons" id="unknown"><button><img
-        src="{{url_for('static', filename='images/unknown_button.png')}}" /></button></a>
+  <!-- buttons -->
+  <a href=# class="rating-buttons" id="dislike">
+    <button"><img src="{{url_for('static', filename='images/x_button.png')}}" /></button>
+  </a>
 
-  <a href=# class="rating-buttons" id="like"><button><img
-        src="{{url_for('static', filename='images/check_button.png')}}" /></button></a>
+  <a href=# class="rating-buttons" id="unknown">
+    <button><img src="{{url_for('static', filename='images/unknown_button.png')}}" /></button>
+  </a>
 
-  <!-- <input type="hidden" name="rating" value="{{movie}}" /> -->
+  <a href=# class="rating-buttons" id="like">
+    <button"><img src="{{url_for('static', filename='images/check_button.png')}}" /></button>
+  </a>
+
+  <!-- hidden data to submit -->
+
+  <input type="hidden" name="movie_rated" value="{{movie.id}}" />
+  <input type="hidden" name="rating" id="rating" value="" />
+
 </form>
 
 
 <!-- button functionality -->
 <script type=text/javascript>
+
   $(function() {
     $('a#dislike').bind('click', function() {
-      $.getJSON('/dislike',
-          function(data) {
-      });
+      document.getElementById("rating").value = "dislike";
+      document.ratingForm.method = "POST";
+      document.ratingForm.submit();
+      document.ratingForm.method = "GET";
   return false;
 });
 });
 
  $(function() {
     $('a#unknown').bind('click', function() {
-      $.getJSON('/unknown',
-          function(data) {
-      });
+      document.getElementById("rating").value = "unknown";
+      document.ratingForm.method = "POST";
+      document.ratingForm.submit();
+      document.ratingForm.method = "GET";
   return false;
 });
 });
 
 $(function() {
     $('a#like').bind('click', function() {
-      $.getJSON('/like',
-          function(data) {
-      });
+      document.getElementById("rating").value = "like";
+      document.ratingForm.method = "POST";
+      document.ratingForm.submit();
+      document.ratingForm.method = "GET";
   return false;
 });
 });
