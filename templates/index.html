@@ -1,40 +1,43 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Home Page</h1>
-{% for rating in ratings %}
-<h1> {{ rating.movie }} made in {{ rating.year }} </h1>
-<h2>{{ rating.bio }}</h2>
-<p>I rated this {{ rating.rating }}!</p>
-{% endfor %}
 
+<!-- movie display -->
+<div id="movie_display">
 
-<!--
+  <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="" />
 
-<button style="background-image: url(images/x_button.png)" />
-<button style="background-image: url(images/check_button.png)" />
+</div>
 
-<form action=" /" method="POST">
-  <input id='dislikeButton' class="rating-buttons" type="image"
-    src="{{url_for('static', filename='images/x_button.png')}}" name="rating" value="dislike" />
-  <input id='likeButton' class="rating-buttons" type="image"
-    src="{{url_for('static', filename='images/check_button.png')}}" name="rating" value="like" />
-</form>
-
-
--->
-<form>
-  <a href=# class="rating-buttons" id=dislike><button><img
+<!-- buttons -->
+<form action='/get-rating' method="POST">
+  <a href=# class="rating-buttons" id="dislike"><button><img
         src="{{url_for('static', filename='images/x_button.png')}}" /></button></a>
-  <a href=# class="rating-buttons" id=like><button><img
+
+  <a href=# class="rating-buttons" id="unknown"><button><img
+        src="{{url_for('static', filename='images/unknown_button.png')}}" /></button></a>
+
+  <a href=# class="rating-buttons" id="like"><button><img
         src="{{url_for('static', filename='images/check_button.png')}}" /></button></a>
+
+  <!-- <input type="hidden" name="rating" value="{{movie}}" /> -->
 </form>
 
+
+<!-- button functionality -->
 <script type=text/javascript>
   $(function() {
     $('a#dislike').bind('click', function() {
       $.getJSON('/dislike',
           function(data) {
-        //do nothing
+      });
+  return false;
+});
+});
+
+ $(function() {
+    $('a#unknown').bind('click', function() {
+      $.getJSON('/unknown',
+          function(data) {
       });
   return false;
 });
@@ -44,12 +47,10 @@ $(function() {
     $('a#like').bind('click', function() {
       $.getJSON('/like',
           function(data) {
-        //do nothing
       });
   return false;
 });
 });
 </script>
-
 
 {% endblock content %}

@@ -1,19 +1,125 @@
 * {
   outline: none;
+  margin: 0;
+  padding: 0;
 }
 
 body {
+  margin: 1vw 1.5vw;
+  background-color: #fdfaf7;
   font-family: Montserrat, serif;
   font-weight: 400;
+  margin-left: 2vw;
+  margin-right: 2vw;
+}
+
+/* logo styling */
+a {
+  text-decoration: none;
+}
+
+a.logo span {
+  /* anti-link styling */
+  color: black;
+
+  /* decoration */
+  font-weight: 700;
+  font-size: 50px;
+}
+
+.logo {
+  display: inline-block;
+  position: relative;
+  margin: auto;
+  padding: 0px 22px;
+  transition: all 0.2s ease;
+}
+
+.logo:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 28px;
+  background: rgba(171, 216, 250, 0.5);
+  width: 65px;
+  height: 65px;
+  transition: all 0.3s ease;
+}
+.logo span {
+  position: relative;
+  vertical-align: middle;
+}
+
+.logo:hover:before {
+  width: 100%;
+  background: #abd8fa;
+}
+
+.logo:active {
+  transform: scale(0.96);
+}
+
+/* homepage exclusive styles */
+#movie_poster {
+  display: block;
+  width: 400px;
+  margin: 0 auto;
+  border-radius: 7%;
+  /*border: 5px solid #c7d0d8;*/
+}
+
+/* yes/no buttons */
+form {
+  /* positioning */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* sizing */
+  width: 500px;
 }
 
 .rating-buttons button {
-  width: 75px;
-  height: 75px;
   background: transparent;
   border: none;
+  transition: filter .3s;
+}
+
+.rating-buttons#like, .rating-buttons#dislike {
+  width: 100px;
+  height: 100px;
+}
+
+.rating-buttons#unknown {
+  height: 100px;
+  width: 185px;
+  border-radius: 13%;
+}
+
+
+
+.rating-buttons#unknown button img {
+}
+
+.rating-buttons button:hover{
+  filter: brightness(110%);
+}
+
+.rating-buttons button:active{
+  filter: brightness(80%);
 }
 
 .rating-buttons img {
   width: 100%;
+}
+
+#dislike {
+}
+
+#like {
 }
