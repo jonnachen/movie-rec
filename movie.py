@@ -17,6 +17,3 @@ class Movie:
         self.vote_average = movie_dict["vote_average"]
         self.overview = movie_dict["overview"]
         self.release_date = movie_dict["release_date"]
-
-    def get_string(self):
-        json.dumps(self.__dict__)
