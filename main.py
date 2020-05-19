@@ -6,6 +6,7 @@ import random
 import urllib.parse
 import requests
 from movie import Movie
+from recommender import Recommender
 
 # instance of flask class
 app = Flask(__name__)
@@ -99,6 +100,13 @@ def get_movie(id):
             return movie
 
 
+def check_ten(personal_ratings, num_rated):
+    return (num_rated >= 10)
+
+
+def check_personal_ratings(personal_ratings):
+    not (personal_ratings == [])
+
 # routing
 
 # routing to main page
@@ -120,8 +128,7 @@ def main():
 
         num_rated += 1
 
-    if num_rated >= 10:
-        print(rated_history)
+    if check_ten(personal_ratings, num_rated):
         return redirect(url_for('results'))
 
     # get a random + unique movie from movie list
@@ -135,7 +142,21 @@ def main():
 # routing to results page
 @app.route('/results')
 def results():
-    return render_template('results.html', title="Results", personal_ratings=personal_ratings)
+    # if personal_rating list is empty, reroute to 404 page
+    if check_personal_ratings(personal_ratings):
+        return redirect(url_for('error'))
+
+    recommender = Recommender(personal_ratings)
+    # call function here for calculations like recommender.get_result or smthg
+    # that returns a movie, store movie in result variable below
+    result = recommender.get_result()
+    # print(result)
+    return render_template('results.html', title="Results", result=result)
+
+
+@app.route('/404')
+def error():
+    return render_template('404.html', title="404 error")
 
 
 if __name__ == '__main__':

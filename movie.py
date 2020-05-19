@@ -1,6 +1,3 @@
-import json
-
-
 class Movie:
     def __init__(self, movie_dict):
         self.popularity = movie_dict["popularity"]
