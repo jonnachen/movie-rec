@@ -143,15 +143,20 @@ def main():
 @app.route('/results')
 def results():
     # if personal_rating list is empty, reroute to 404 page
-    if check_personal_ratings(personal_ratings):
-        return redirect(url_for('error'))
+    # if check_personal_ratings(personal_ratings):
+        # return redirect(url_for('error'))
 
-    recommender = Recommender(personal_ratings)
+    # below is currently for front-end purposes
+    result = choose_unique_film()
+    percent_match = "86%"
+    release_year = result.release_date[0:4]
+
+    #recommender = Recommender(personal_ratings)
     # call function here for calculations like recommender.get_result or smthg
     # that returns a movie, store movie in result variable below
-    result = recommender.get_result()
+    #result = recommender.get_result()
     # print(result)
-    return render_template('results.html', title="Results", result=result)
+    return render_template('results.html', title="Results", result=result, release_year=release_year, percent_match=percent_match)
 
 
 @app.route('/404')

@@ -13,6 +13,19 @@ body {
   margin-right: 2vw;
 }
 
+/* font styling */
+h1 {
+  color: #737373;
+  font-weight: 700;
+  font-size: 40px;
+}
+
+p {
+  color: #737373;
+  line-height: 200%;
+  font-size: 17px;
+}
+
 /* logo styling */
 a {
   text-decoration: none;
@@ -31,7 +44,7 @@ a.logo span {
   display: inline-block;
   position: relative;
   margin: auto;
-  padding: 0px 22px;
+  padding: 5px 22px;
   transition: all 0.2s ease;
 }
 
@@ -84,7 +97,7 @@ form {
   width: 500px;
 }
 
-.rating-buttons button {
+button {
   background: transparent;
   border: none;
   transition: filter .3s;
@@ -98,17 +111,68 @@ form {
 .rating-buttons#unknown {
   height: 100px;
   width: 185px;
-  border-radius: 13%;
 }
 
-.rating-buttons button:hover{
+.rating-buttons#unknown img {
+  border-radius: 14%;
+}
+
+button:hover{
   filter: brightness(110%);
 }
 
-.rating-buttons button:active{
+button:active{
   filter: brightness(80%);
 }
 
 .rating-buttons img {
   width: 100%;
 }
+
+/* result page exclusive styles */
+
+#try-again{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+#try-again button img{
+  height: 70px;
+  width: 205px;
+}
+
+#result_display {
+  display: flex;
+  width: 900px;
+  margin: 20px auto;
+}
+
+#result_info {
+  margin-left: 50px;
+  position: relative;
+}
+
+#result_display #movie_poster {
+  width: 450px;
+  margin: 0 auto;
+  border-radius: 7%;
+  /*border: 5px solid #c7d0d8;*/
+}
+
+#result_info h1 {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+#result_info h2{
+  background: #c9e265;
+  width: 200px;
+  height: 200px;
+  margin: 10px auto;
+  border-radius: 50%;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 70px;
+}
+

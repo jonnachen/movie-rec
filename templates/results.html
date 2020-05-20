@@ -1,12 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div id="movie_display">
+<a href="{{ url_for('main') }}" id="try-again">
+  <button><img src="{{url_for('static', filename='images/try_again_button.png')}}" /></button>
+</a>
+
+<div id="result_display">
 
   <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{result.poster_path}}" alt="" />
 
-</div>
+  <div id="result_info">
+    <div id="center">
+      <h2>{{percent_match}}</h2>
+      <h1>{{result.title}} ({{release_year}})</h1>
+      <p>{{result.overview}}</p>
+    </div>
+  </div>
 
-<h1>Movie Title = {{result.title}}</h1>
+</div>
 
 {% endblock content %}
