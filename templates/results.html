@@ -7,8 +7,9 @@
 
 <div id="result_display">
 
-  <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{result.poster_path}}" alt="" />
-
+  <a id="movie-link" href="https://www.themoviedb.org/movie/{{result.id}}" target="_blank">
+    <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{result.poster_path}}" alt="" />
+  </a>
   <div id="result_info">
     <div id="center">
       <h2>{{percent_match}}</h2>

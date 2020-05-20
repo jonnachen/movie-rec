@@ -139,10 +139,12 @@ button:active{
 #try-again button img{
   height: 70px;
   width: 205px;
+  border-radius: 10%;
 }
 
 #result_display {
   display: flex;
+  flex-direction: row;
   width: 900px;
   margin: 20px auto;
 }
@@ -152,10 +154,14 @@ button:active{
   position: relative;
 }
 
-#result_display #movie_poster {
+#result_display #movie-link {
   width: 450px;
-  margin: 0 auto;
+  /*border: 5px solid #c7d0d8;*/
+}
+
+#result_display #movie_poster {
   border-radius: 7%;
+  margin: 0 auto;
   /*border: 5px solid #c7d0d8;*/
 }
 
