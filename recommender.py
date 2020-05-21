@@ -57,14 +57,11 @@ class Recommender:
         for each_rec_list in recommended_lists:
             for ele in each_rec_list:
                 if (ele.id in combine_recs):
-                    print("THERE HAS BEEN AN INCREMENTATION")
                     current_val = combine_recs[ele.id]
                     del combine_recs[ele.id]
                     combine_recs[ele.id] = current_val+1
                 else:
                     combine_recs[ele.id] = 1
-
-        print(combine_recs)
 
         result_id = max(combine_recs, key=combine_recs.get)
 
