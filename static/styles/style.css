@@ -238,7 +238,8 @@ button:active{
   color: white;
   display: grid;
   place-items: center;
-  font-size: 60px;
+  text-align: center;
+  font-size: 30px;
 }
 
 /* 404 exclusive styling */

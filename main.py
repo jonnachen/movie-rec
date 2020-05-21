@@ -112,6 +112,7 @@ def check_personal_ratings(personal_ratings):
 def check_tour(num_rated):
     print(num_rated)
     return (num_rated > 1)
+
 # routing
 
 # routing to main page
@@ -128,8 +129,10 @@ def main():
         rated_movie_id = request.form.get('movie_id_rated')
         rating = request.form.get('rating')
 
-        # add movie (from id) and rating to list of personal_ratings
-        personal_ratings.append([get_movie(rated_movie_id), rating])
+        if rating == 'unknown':
+            num_rated -= 1
+        elif rating == 'like':
+            personal_ratings.append([get_movie(rated_movie_id), rating])
 
         num_rated += 1
 
@@ -148,20 +151,23 @@ def main():
 @app.route('/results')
 def results():
     # if personal_rating list is empty, reroute to 404 page
-    # if check_personal_ratings(personal_ratings):
-        # return redirect(url_for('error'))
+    if check_personal_ratings(personal_ratings):
+        return redirect(url_for('to404'))
 
-    # below is currently for front-end purposes
-    result = choose_unique_film()
-    percent_match = "86%"
-    release_year = result.release_date[0:4]
+    try:
+        # below is currently for front-end purposes
+        # result = choose_unique_film()
+        # percent_match = "86%"
 
-    #recommender = Recommender(personal_ratings)
-    # call function here for calculations like recommender.get_result or smthg
-    # that returns a movie, store movie in result variable below
-    #result = recommender.get_result()
-    # print(result)
-    return render_template('results.html', title="Results", result=result, release_year=release_year, percent_match=percent_match)
+        recommender = Recommender(personal_ratings)
+        result = recommender.get_result()
+        release_year = result.release_date[0:4]
+        percent_match = "it's a match!"
+        return render_template('results.html', title="Results", result=result, release_year=release_year, percent_match=percent_match)
+
+    except Exception as e:
+        return redirect(url_for('to404'))
+
 
 # 404 error page
 @app.errorhandler(404)

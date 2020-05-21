@@ -9,7 +9,6 @@ class Movie:
         self.backdrop_path = movie_dict["backdrop_path"]
         self.original_language = movie_dict["original_language"]
         self.original_title = movie_dict["original_title"]
-        self.genre_ids = movie_dict["genre_ids"]
         self.title = movie_dict["title"]
         self.vote_average = movie_dict["vote_average"]
         self.overview = movie_dict["overview"]
