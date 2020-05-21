@@ -101,12 +101,17 @@ def get_movie(id):
 
 
 def check_ten(personal_ratings, num_rated):
+    print(num_rated)
     return (num_rated >= 10)
 
 
 def check_personal_ratings(personal_ratings):
     not (personal_ratings == [])
 
+
+def check_tour(num_rated):
+    print(num_rated)
+    return (num_rated > 1)
 # routing
 
 # routing to main page
@@ -137,7 +142,7 @@ def main():
     # add to the history of movies that have been shown so far
     rated_history.append(random_movie)
 
-    return render_template('index.html', movie=random_movie)
+    return render_template('index.html', movie=random_movie, tour=check_tour(num_rated))
 
 # routing to results page
 @app.route('/results')
@@ -158,9 +163,14 @@ def results():
     # print(result)
     return render_template('results.html', title="Results", result=result, release_year=release_year, percent_match=percent_match)
 
+# 404 error page
+@app.errorhandler(404)
+def error(e):
+    return redirect(url_for('to404'))
+
 
 @app.route('/404')
-def error():
+def to404():
     return render_template('404.html', title="404 error")
 
 

@@ -1,35 +1,43 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<!-- movie display -->
-<div id="movie_display">
-
-  <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="" />
-
+<div id="tour">
+  <h3 class="tour_text" id="X">didn't like this movie? click <span>X</span> and we'll suggest one unlike it.</h3>
+  <h3 class="tour_text" id="unknown">never heard of this movie before? click 'never heard of this movie' and another
+    movie will appear.</h3>
+  <h3 class="tour_text" id="check">loved this movie? click <span>✔</span> and we're suggest one like it.</h3>
 </div>
 
-<form action='#' method="GET" name="ratingForm">
+<div id="index-content">
+  <!-- movie display -->
+  <div id="movie_display">
 
-  <!-- buttons -->
-  <a href=# class="rating-buttons" id="dislike">
-    <button><img src="{{url_for('static', filename='images/x_button.png')}}" /></button>
-  </a>
+    <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="movie poster" />
 
-  <a href=# class="rating-buttons" id="unknown">
-    <button><img src="{{url_for('static', filename='images/unknown_button.png')}}" /></button>
-  </a>
+  </div>
 
-  <a href=# class="rating-buttons" id="like">
-    <button><img src="{{url_for('static', filename='images/check_button.png')}}" /></button>
-  </a>
+  <form action='#' method="GET" name="ratingForm">
 
-  <!-- hidden data to submit -->
-  <input type="hidden" name="has_started_rating" id="has_started_rating" value="False" />
-  <input type="hidden" name="movie_id_rated" value="{{movie.id}}" />
-  <input type="hidden" name="rating" id="rating" value="" />
+    <!-- buttons -->
+    <a href=# class="rating-buttons" id="dislike">
+      <button><img src="{{url_for('static', filename='images/x_button.png')}}" /></button>
+    </a>
 
-</form>
+    <a href=# class="rating-buttons" id="unknown">
+      <button><img src="{{url_for('static', filename='images/unknown_button.png')}}" /></button>
+    </a>
 
+    <a href=# class="rating-buttons" id="like">
+      <button><img src="{{url_for('static', filename='images/check_button.png')}}" /></button>
+    </a>
+
+    <!-- hidden data to submit -->
+    <input type="hidden" name="has_started_rating" id="has_started_rating" value="False" />
+    <input type="hidden" name="movie_id_rated" value="{{movie.id}}" />
+    <input type="hidden" name="rating" id="rating" value="" />
+
+  </form>
+</div>
 
 <!-- button functionality -->
 <script type=text/javascript>

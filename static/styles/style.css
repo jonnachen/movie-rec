@@ -17,7 +17,12 @@ body {
 h1 {
   color: #737373;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 30px;
+}
+
+h3 {
+  color: #737373;
+  font-size: 18px;
 }
 
 p {
@@ -44,7 +49,7 @@ a.logo span {
   display: inline-block;
   position: relative;
   margin: auto;
-  padding: 5px 22px;
+  padding: 5px 22px 0px 22px;
   transition: all 0.2s ease;
 }
 
@@ -74,10 +79,62 @@ a.logo span {
   transform: scale(0.96);
 }
 
+/* tour exclusive styles */
+.hidden {
+  display: none;
+}
+
+.tour_text {
+  width: 250px;
+}
+
+.tour_text#X {
+  position: absolute;
+  z-index: 2;
+  left: 200px;
+  top: 550px;
+}
+
+.tour_text#X span {
+  color: #ff5757;
+}
+
+.tour_text#unknown {
+  position: absolute;
+  z-index: 2;
+  right: 200px;
+  top: 250px;
+}
+
+.tour_text#check {
+  position: absolute;
+  z-index: 2;
+  right: 150px;
+  top: 600px;
+}
+
+.tour_text#check span {
+  color: #c9e265;
+}
+
+/*
+<div id="tour">
+  <h3 class="tour_text" id="X">didn't like this movie? click X and we'll suggest one unlike it.</h3>
+  <h3 class="tour_text" id="unknown">never heard of this movie before? click 'never heard of this movie' and another
+    movie will appear.</h3>
+  <h3 class="tour_text" id="check">loved this movie? click ✔ and we're suggest one like it.</h3>
+</div>
+*/
+
 /* homepage exclusive styles */
+#index-content {
+  width: 100%;
+  z-index :1;
+}
+
 #movie_poster {
   display: block;
-  width: 400px;
+  width: 375px;
   margin: 0 auto;
   border-radius: 7%;
   /*border: 5px solid #c7d0d8;*/
@@ -104,13 +161,13 @@ button {
 }
 
 .rating-buttons#like, .rating-buttons#dislike {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 }
 
 .rating-buttons#unknown {
-  height: 100px;
-  width: 185px;
+  height: 90px;
+  width: 170px;
 }
 
 .rating-buttons#unknown img {
@@ -146,23 +203,25 @@ button:active{
   display: flex;
   flex-direction: row;
   width: 900px;
-  margin: 20px auto;
+  margin: 30px auto 10px auto;
 }
 
 #result_info {
   margin-left: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
   position: relative;
 }
 
 #result_display #movie-link {
   width: 450px;
-  /*border: 5px solid #c7d0d8;*/
 }
 
 #result_display #movie_poster {
+  width: 425px;
+  height: 637px;
   border-radius: 7%;
-  margin: 0 auto;
-  /*border: 5px solid #c7d0d8;*/
+  margin: auto;
 }
 
 #result_info h1 {
@@ -172,13 +231,326 @@ button:active{
 
 #result_info h2{
   background: #c9e265;
-  width: 200px;
-  height: 200px;
-  margin: 10px auto;
+  width: 180px;
+  height: 180px;
+  margin: 10px auto 30px auto;
   border-radius: 50%;
   color: white;
   display: grid;
   place-items: center;
+  font-size: 60px;
+}
+
+/* 404 exclusive styling */
+.icon {
+  display: block;
+  height: 150px;
+  width: 150px;
+  margin: 120px auto 0px auto;
+}
+
+.error-text {
+  text-align: center;
+}
+
+.error-text h1 {
+  font-size: 50px;
+}
+.error-text h1#oops {
   font-size: 70px;
 }
 
+.error-text h2 {
+  color: #737373;
+  margin-top: 20px;
+}
+
+.error-text h2 a {
+  color: rgb(145, 207, 255);
+  text-decoration: underline;
+  transition: filter .3s;
+}
+
+.error-text h2 a:hover{
+  filter: brightness(115%);
+}
+
+/* credit */
+p#credit{
+  /* positioning */
+  bottom: 3px;
+  margin-top: 7px;
+  display: block;
+
+  /* sizing*/
+  width: 100%;
+
+  /* text */
+  text-align: center;
+  font-size: 14px;
+}
+
+p#credit a {
+  color: rgb(145, 207, 255);
+  transition: filter .3s;
+}
+
+p#credit a:hover{
+  filter: brightness(115%);
+}
+
+/* RESPONSIVENESS STYLING */
+
+/* ipad pro landscape */
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 2) 
+  and (orientation: landscape){
+
+  /* font styling */
+  p {
+    font-size: 20px;
+  }
+
+  /* logo styling */
+  a.logo span {
+    font-size: 75px;
+  }
+
+  .logo:before {
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+  }
+
+  /* homepage exclusive styles */
+  #tour {
+    display: none;
+  }
+
+  #movie_poster {
+    width: 475px;
+  }
+
+  .rating-buttons#like, .rating-buttons#dislike {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .rating-buttons#unknown {
+    height: 100px;
+    width: 200px;
+  }
+
+  /* result page exclusive styles */
+  #result_display {
+    margin-top: 50px;
+    width: 1000px;
+  }
+
+  #result_display #movie_poster {
+    width: 450px;
+    height: 645px;
+  }
+  
+  /* footer styling */
+  p#credit {
+    margin-top: 15px;
+  }
+}
+
+/* ipad pro portrait */
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+
+  /* logo styling */
+  a.logo span {
+    font-size: 85px;
+  }
+
+  .logo:before {
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+  }
+
+  /* homepage exclusive styles */
+  #tour {
+    display: none;
+  }
+  
+  #movie_poster {
+    margin-top: 50px;
+    margin-bottom: 60px;
+    width: 600px;
+  }
+
+  form {
+    width: 750px;
+  }
+  
+  .rating-buttons#like, .rating-buttons#dislike {
+    width: 150px;
+    height: 150px;
+  }
+    
+  .rating-buttons#unknown {
+    height: 150px;
+    width: 300px;
+  }
+  
+  /* footer styling */
+  p#credit {
+    margin-top: 40px;
+    font-size: 20px;
+  }
+
+}
+
+/* ipad landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) 
+  and (orientation: landscape) {
+
+  /* logo styling */
+  a.logo span {
+    font-size: 45px;
+  }
+
+  /* homepage exclusive styles */
+  #tour {
+    display: none;
+  }
+
+  #movie_poster {
+    width: 350px;
+  }
+
+  /* footer styling */
+  p#credit {
+    margin-top: 18px;
+  }
+}
+
+/* ipad portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1020px) 
+  and (-webkit-min-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+
+
+  /* logo styling */
+  a.logo span {
+    font-size: 85px;
+  }
+
+  .logo:before {
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+  }
+
+  /* homepage exclusive styles */
+  #tour {
+    display: none;
+  }
+
+  #movie_poster {
+    margin-top: 20px;
+    width: 450px;
+  }
+
+  .rating-buttons#like, .rating-buttons#dislike {
+    width: 120px;
+    height: 120px;
+  }
+    
+  .rating-buttons#unknown {
+    height: 120px;
+    width: 240px;
+  }
+  
+  /* footer styling */
+  p#credit {
+    margin-top: 30px;
+    font-size: 20px;
+  }
+}
+
+
+/* iphone portrait */
+@media only screen 
+  and (max-width: 450px) {
+
+  /* font styling */
+  h1 {
+    font-size: 40px;
+  }
+  p {
+    font-size: 25px;
+  }
+
+  /* logo styling */
+  a.logo {
+    margin-top: 20px;
+  }
+ 
+  /* homepage exclusive styles */
+  #tour {
+    display: none;
+  }
+
+  #movie_poster {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+  }
+
+  form {
+    width: 320px;
+  }
+  .rating-buttons#like, .rating-buttons#dislike {
+    width: 70px;
+    height: 70px;
+  }
+    
+  .rating-buttons#unknown {
+    height: 70px;
+    width: 140px;
+  }
+
+  /* result page exclusive styles */
+  a#try-again {
+    position: static;
+  }
+  #try-again button img{
+    margin-top: 15px;
+ 
+  }
+
+  #result_display {
+    flex-direction: column;
+    width: 400px;
+  }
+
+  #result_info h2 {
+    margin-top: 20px;
+    width: 180px;
+    height: 180px;
+  }
+
+  /* footer styling */
+  p#credit {
+    width: 400px;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+}

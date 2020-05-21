@@ -1,6 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1> THERE WAS A 404 ERROR </h1>
+<img class="icon" src="{{url_for('static', filename='images/warning.png')}}" alt="" />
+
+<div class="error-text">
+  <h1 id="oops">Oops!</h1>
+  <h1>404: Page not found.</h1>
+  <h2>Get back to the main page <a href="{{ url_for('main') }}">here</a>.</h2>
+</div>
+
 
 {% endblock content %}
