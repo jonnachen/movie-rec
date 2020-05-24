@@ -3,7 +3,7 @@
 
 <div id="tour">
   <h3 class="tour_text" id="X">didn't like this movie? click <span>X</span> and we'll suggest one unlike it.</h3>
-  <h3 class="tour_text" id="unknown">never heard of this movie before? click 'never heard of this movie' and another
+  <h3 class="tour_text" id="unseen">never seen this movie? click 'never seen this movie' and another
     movie will appear.</h3>
   <h3 class="tour_text" id="check">loved this movie? click <span>✔</span> and we're suggest one like it.</h3>
 </div>
@@ -23,8 +23,8 @@
       <button><img src="{{url_for('static', filename='images/x_button.png')}}" /></button>
     </a>
 
-    <a href=# class="rating-buttons" id="unknown">
-      <button><img src="{{url_for('static', filename='images/unknown_button.png')}}" /></button>
+    <a href=# class="rating-buttons" id="unseen">
+      <button><img src="{{url_for('static', filename='images/unseen_button.png')}}" /></button>
     </a>
 
     <a href=# class="rating-buttons" id="like">
@@ -54,8 +54,8 @@
 });
 
  $(function() {
-    $('a#unknown').bind('click', function() {
-      document.getElementById("rating").value = "unknown";
+    $('a#unseen').bind('click', function() {
+      document.getElementById("rating").value = "unseen";
       document.getElementById("has_started_rating").value = "True";
       document.ratingForm.method = "POST";
       document.ratingForm.submit();

@@ -1,9 +1,7 @@
 # imports
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 import json
-import urllib.request as u_request
 import random
-import urllib.parse
 import requests
 from movie import Movie
 from recommender import Recommender
@@ -84,7 +82,7 @@ def choose_unique_film():
         exists = False
         random_movie = random.choice(movie_lib)
         for rated in rated_history:
-            if random_movie == rated:
+            if (random_movie == rated) and (random_movie.poster_path != ""):
                 exists = True
         if exists == False:
             unique = True
@@ -129,7 +127,7 @@ def main():
         rated_movie_id = request.form.get('movie_id_rated')
         rating = request.form.get('rating')
 
-        if rating == 'unknown':
+        if rating == 'unseen':
             num_rated -= 1
         elif rating == 'like':
             personal_ratings.append([get_movie(rated_movie_id), rating])
