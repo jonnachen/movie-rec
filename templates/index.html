@@ -46,6 +46,10 @@
 
 <script type=text/javascript>
 
+  $(document).ready(function() {
+        $('html').fadeIn();
+    });
+
       // loading screen functionality
       if ({{num_rated}} == 0){
         document.querySelector('.index-content').style.display = 'none';
@@ -72,7 +76,7 @@
         document.ratingForm.method = "POST";
         document.ratingForm.submit();
         document.ratingForm.method = "GET";
-        }, 1500)
+        }, 750)
 
   return false;
 });
@@ -89,7 +93,7 @@
         document.ratingForm.method = "POST";
         document.ratingForm.submit();
         document.ratingForm.method = "GET";
-        }, 1500)
+        }, 750)
   return false;
 });
 });
@@ -105,7 +109,7 @@ $(function() {
         document.ratingForm.method = "POST";
         document.ratingForm.submit();
         document.ratingForm.method = "GET";
-        }, 1500)
+        }, 750)
   return false;
 });
 });
@@ -124,7 +128,6 @@ if (document.querySelector('#tour').style.display != 'none') {
 // fade out whole page after rating page before results page
 window.onbeforeunload = function (e) {
   $('html').fadeOut();
-  //document.getElementById('movie_poster').className = 'fade-out';
 }
 
 </script>

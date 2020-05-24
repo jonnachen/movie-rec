@@ -139,12 +139,9 @@ def main():
         rated_movie_id = request.form.get('movie_id_rated')
         rating = request.form.get('rating')
 
-        if rating == 'unseen':
-            num_rated -= 1
-        elif rating == 'like':
+        if (rating == 'like' or rating == 'dislike'):
             personal_ratings.append([get_movie(rated_movie_id), rating])
-
-        num_rated += 1
+            num_rated += 1
 
     if check_ten(personal_ratings, num_rated):
         return redirect(url_for('results'))

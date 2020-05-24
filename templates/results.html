@@ -23,8 +23,9 @@
   </div>
 </div>
 
-<div id="loading" class="container"><img src="{{url_for('static', filename='images/result_loading.gif')}}"
-    alt="loading gif" /></div>
+<div class="container">
+  <div id="loading"><img src="{{url_for('static', filename='images/result_loading.gif')}}" alt="loading gif" /></div>
+</div>
 
 
 
@@ -39,9 +40,7 @@
     document.getElementById('loading').style.display = 'none';
     document.querySelector('.content').style.display = 'block';
     document.querySelector('.logo').style.display = 'inline-block';
-  }, 2000)
-
-
+  }, 2000) 
 
 </script>
 
