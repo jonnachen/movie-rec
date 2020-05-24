@@ -44,11 +44,13 @@
   <div id="load"></div>
 </div>
 
-<script type=text/javascript>
+<div class="container">
+  <div id="loading" class="endloading"><img src="{{url_for('static', filename='images/result_loading.gif')}}"
+      alt="loading gif" /></div>
+</div>
 
-  $(document).ready(function() {
-        $('html').fadeIn();
-    });
+<script type=text/javascript>
+      document.querySelector('.endloading').style.display = 'none';
 
       // loading screen functionality
       if ({{num_rated}} == 0){
@@ -127,7 +129,10 @@ if (document.querySelector('#tour').style.display != 'none') {
 
 // fade out whole page after rating page before results page
 window.onbeforeunload = function (e) {
-  $('html').fadeOut();
+  $('.index-content').fadeOut();
+  $('.logo').fadeOut();
+  $('#loading').fadeIn();
+
 }
 
 </script>

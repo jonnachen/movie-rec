@@ -43,7 +43,7 @@ a {
 }
 
 .logo img {
-  width: 250px;
+  width: 225px;
 }
 
 /* index loading page exclusive styles */
@@ -158,7 +158,7 @@ a {
   width: 375px;
   margin: 0 auto;
   border-radius: 7%;
-  animation: fadeIn 0.75s;
+  animation: fadeIn 1s;
 }
 
 @keyframes fadeIn {
@@ -174,7 +174,7 @@ a {
 }
 
 #movie_poster.fade-out {
-  animation: fadeOut 0.75s;
+  animation: fadeOut 1s;
 }
 
 @keyframes fadeOut {
@@ -314,23 +314,6 @@ a#movie-link:hover img#movie_poster {
   opacity: 0.2;
 }
 
-/*    
-    <a id="movie-link" href="https://www.themoviedb.org/movie/{{result.id}}" target="_blank">
-      <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{result.poster_path}}" alt="movie poster" />
-      <div class="overlay">
-        <div class="text">click here for more information</div>
-      </div>
-    </a>
-
-
-#result_display #movie_poster{
-  -webkit-transition: 0.5s ease-in-out;
-  -moz-transition: 0.5s ease-in-out;
-  -o-transition: 0.5s ease-in-out;
-  transition: 0.5s ease-in-out;
-}
-*/
-
 #result_display #movie_poster {
   width: 425px;
   height: 637px;
@@ -393,7 +376,7 @@ a#movie-link:hover img#movie_poster {
 /* credit */
 p#credit{
   /* positioning */
-  bottom: 5px;
+  bottom: 0;
   margin-top: 10px;
   display: block;
   position: absolute;

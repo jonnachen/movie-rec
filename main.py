@@ -85,7 +85,7 @@ def choose_unique_film():
         exists = False
         random_movie = random.choice(movie_lib)
         for rated in rated_history:
-            if (random_movie == rated) and (random_movie.poster_path != ""):
+            if (random_movie == rated) and (random_movie.poster_path != None):
                 exists = True
         if exists == False:
             unique = True
