@@ -1,5 +1,5 @@
 # imports
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import json
 import random
 import requests
@@ -73,6 +73,9 @@ rated_history = []
 # number of movies rated so far
 num_rated = 0
 
+# boolean for tracking if movies have started to be rated
+has_started_rating = False
+
 # return a movie that has not yet been rated
 
 
@@ -99,6 +102,7 @@ def get_movie(id):
 
 
 def check_ten(personal_ratings, num_rated):
+    print("number rated so far is:")
     print(num_rated)
     return (num_rated >= 10)
 
@@ -106,18 +110,26 @@ def check_ten(personal_ratings, num_rated):
 def check_personal_ratings(personal_ratings):
     not (personal_ratings == [])
 
-
-def check_tour(num_rated):
-    print(num_rated)
-    return (num_rated > 1)
-
 # routing
+
+# route try_again
+@app.route('/try_again')
+def try_again():
+    global personal_ratings
+    global rated_history
+    global num_rated
+    global has_started_rating
+    personal_ratings = []
+    rated_history = []
+    num_rated = 0
+    has_started_rating = False
+    return redirect(url_for('main'))
+
 
 # routing to main page
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/#', methods=['GET', 'POST'])
 def main():
-    has_started_rating = bool(request.form.get('has_started_rating'))
+    global has_started_rating
 
     if request.method == 'POST'and has_started_rating:
         # movie was rated via form
@@ -143,11 +155,15 @@ def main():
     # add to the history of movies that have been shown so far
     rated_history.append(random_movie)
 
-    return render_template('index.html', movie=random_movie, tour=check_tour(num_rated))
+    has_started_rating = True
+
+    return render_template('index.html', movie=random_movie, num_rated=num_rated)
+
 
 # routing to results page
 @app.route('/results')
 def results():
+
     # if personal_rating list is empty, reroute to 404 page
     if check_personal_ratings(personal_ratings):
         return redirect(url_for('to404'))
@@ -158,12 +174,12 @@ def results():
         # percent_match = "86%"
 
         recommender = Recommender(personal_ratings)
-        result = recommender.get_result()
-        release_year = result.release_date[0:4]
-        percent_match = "it's a match!"
-        return render_template('results.html', title="Results", result=result, release_year=release_year, percent_match=percent_match)
+        suggested_result = recommender.get_result()
+        release_year = suggested_result.release_date[0:4]
+        return render_template('results.html', title="Results", result=suggested_result, release_year=release_year)
 
     except Exception as e:
+        print(e)
         return redirect(url_for('to404'))
 
 

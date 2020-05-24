@@ -79,6 +79,69 @@ a.logo span {
   transform: scale(0.96);
 }
 
+/* index loading page exclusive styles */
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.loader {
+  position:relative;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  width: 1.8em;
+  height: 1.8em;
+  position: absolute;
+  border-radius: 4em;
+}
+
+.loader::before {
+  background: #91CFFF;
+  left: 0;
+  transform: translateX(10px);
+  animation: Moveleft 1s ease infinite;
+}
+
+.loader::after {
+  background: #91CFFF;
+  right: 0;
+  transform: translateX(-10px);
+  animation: Moveright 1s ease infinite;
+}
+
+@keyframes Moveright {
+  0% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+    background: rgba(145, 207, 255, 0.7);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes Moveleft {
+  0% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(-10px);
+    background: rgba(145, 207, 255, 0.7);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
 /* tour exclusive styles */
 .hidden {
   display: none;
@@ -99,7 +162,7 @@ a.logo span {
   color: #ff5757;
 }
 
-.tour_text#unknown {
+.tour_text#unseen {
   position: absolute;
   z-index: 2;
   right: 200px;
@@ -117,15 +180,6 @@ a.logo span {
   color: #c9e265;
 }
 
-/*
-<div id="tour">
-  <h3 class="tour_text" id="X">didn't like this movie? click X and we'll suggest one unlike it.</h3>
-  <h3 class="tour_text" id="unknown">never heard of this movie before? click 'never heard of this movie' and another
-    movie will appear.</h3>
-  <h3 class="tour_text" id="check">loved this movie? click ✔ and we're suggest one like it.</h3>
-</div>
-*/
-
 /* homepage exclusive styles */
 #index-content {
   width: 100%;
@@ -137,7 +191,35 @@ a.logo span {
   width: 375px;
   margin: 0 auto;
   border-radius: 7%;
-  /*border: 5px solid #c7d0d8;*/
+  animation: fadeIn 1.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;    
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#movie_poster.fade-out {
+  animation: fadeOut 1.5s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;    
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /* yes/no buttons */
@@ -165,12 +247,12 @@ button {
   height: 90px;
 }
 
-.rating-buttons#unknown {
+.rating-buttons#unseen {
   height: 90px;
   width: 170px;
 }
 
-.rating-buttons#unknown img {
+.rating-buttons#unseen img {
   border-radius: 14%;
 }
 
@@ -184,6 +266,11 @@ button:active{
 
 .rating-buttons img {
   width: 100%;
+}
+
+/* loading result page exclusive styles */
+.loading {
+  position:relative;
 }
 
 /* result page exclusive styles */
@@ -282,6 +369,7 @@ p#credit{
   bottom: 3px;
   margin-top: 7px;
   display: block;
+  position: absolute;
 
   /* sizing*/
   width: 100%;
@@ -399,7 +487,7 @@ p#credit a:hover{
     height: 150px;
   }
     
-  .rating-buttons#unknown {
+  .rating-buttons#unseen {
     height: 150px;
     width: 300px;
   }
@@ -473,7 +561,7 @@ p#credit a:hover{
     height: 120px;
   }
     
-  .rating-buttons#unknown {
+  .rating-buttons#unseen {
     height: 120px;
     width: 240px;
   }
@@ -522,7 +610,7 @@ p#credit a:hover{
     height: 70px;
   }
     
-  .rating-buttons#unknown {
+  .rating-buttons#unseen {
     height: 70px;
     width: 140px;
   }

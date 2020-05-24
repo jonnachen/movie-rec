@@ -1,23 +1,49 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<a href="{{ url_for('main') }}" id="try-again">
-  <button><img src="{{url_for('static', filename='images/try_again_button.png')}}" /></button>
-</a>
+<div class="content">
 
-<div id="result_display">
-
-  <a id="movie-link" href="https://www.themoviedb.org/movie/{{result.id}}" target="_blank">
-    <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{result.poster_path}}" alt="movie poster" />
+  <a href="{{ url_for('try_again') }}" id="try-again">
+    <button><img src="{{url_for('static', filename='images/try_again_button.png')}}" /></button>
   </a>
-  <div id="result_info">
-    <div id="center">
-      <h2>{{percent_match}}</h2>
-      <h1>{{result.title}} ({{release_year}})</h1>
-      <p>{{result.overview}}</p>
-    </div>
-  </div>
 
+  <div id="result_display">
+
+    <a id="movie-link" href="https://www.themoviedb.org/movie/{{result.id}}" target="_blank">
+      <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{result.poster_path}}" alt="movie poster" />
+    </a>
+    <div id="result_info">
+      <div id="center">
+        <h2>it's a match!</h2>
+        <h1>{{result.title}} ({{release_year}})</h1>
+        <p>{{result.overview}}</p>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<div id="loading" class="container"><img src="{{url_for('static', filename='images/result_loading.gif')}}"
+    alt="loading gif" /></div>
+
+
+
+<script type=text/javascript>
+
+ // loading screen functionality
+  document.querySelector('.content').style.display = 'none';
+  document.querySelector('.logo').style.display = 'none';
+  document.getElementById('loading').display = 'block';
+
+  setTimeout(() =>{
+    document.getElementById('loading').style.display = 'none';
+    document.querySelector('.content').style.display = 'block';
+    document.querySelector('.logo').style.display = 'inline-block';
+  }, 2000)
+
+
+
+</script>
+
 
 {% endblock content %}

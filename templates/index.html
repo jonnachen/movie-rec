@@ -1,14 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div id="tour">
-  <h3 class="tour_text" id="X">didn't like this movie? click <span>X</span> and we'll suggest one unlike it.</h3>
-  <h3 class="tour_text" id="unseen">never seen this movie? click 'never seen this movie' and another
-    movie will appear.</h3>
-  <h3 class="tour_text" id="check">loved this movie? click <span>✔</span> and we're suggest one like it.</h3>
-</div>
 
-<div id="index-content">
+<div class="index-content">
+  <div id="tour">
+    <h3 class="tour_text" id="X">didn't like this movie? click <span>X</span> and we'll suggest one unlike it.</h3>
+    <h3 class="tour_text" id="unseen">never seen this movie? click 'never seen this movie' and another
+      movie will appear.</h3>
+    <h3 class="tour_text" id="check">loved this movie? click <span>✔</span> and we're suggest one like it.</h3>
+  </div>
+
   <!-- movie display -->
   <div id="movie_display">
 
@@ -19,15 +20,15 @@
   <form action='#' method="GET" name="ratingForm">
 
     <!-- buttons -->
-    <a href=# class="rating-buttons" id="dislike">
+    <a href="" class="rating-buttons" id="dislike">
       <button><img src="{{url_for('static', filename='images/x_button.png')}}" /></button>
     </a>
 
-    <a href=# class="rating-buttons" id="unseen">
+    <a href="" class="rating-buttons" id="unseen">
       <button><img src="{{url_for('static', filename='images/unseen_button.png')}}" /></button>
     </a>
 
-    <a href=# class="rating-buttons" id="like">
+    <a href="" class="rating-buttons" id="like">
       <button><img src="{{url_for('static', filename='images/check_button.png')}}" /></button>
     </a>
 
@@ -39,16 +40,40 @@
   </form>
 </div>
 
-<!-- button functionality -->
+<div class="container">
+  <div id="load"></div>
+</div>
+
 <script type=text/javascript>
 
+      // loading screen functionality
+      if ({{num_rated}} == 0){
+        document.querySelector('.index-content').style.display = 'none';
+        document.querySelector('.logo').style.display = 'none';
+        document.getElementById('load').classList.add('loader');
+
+        setTimeout(() =>{
+          document.getElementById('load').classList.remove('loader');
+          document.querySelector('.index-content').style.display = 'block';
+          document.querySelector('.logo').style.display = 'inline-block';
+        }, 2000)
+      }
+
+
+// button functionality
   $(function() {
     $('a#dislike').bind('click', function() {
-      document.getElementById("rating").value = "dislike";
-      document.getElementById("has_started_rating").value = "True";
-      document.ratingForm.method = "POST";
-      document.ratingForm.submit();
-      document.ratingForm.method = "GET";
+      document.getElementById('movie_poster').className = 'fade-out';
+
+      setTimeout(() =>{
+        document.querySelector('#movie_poster').style.visibility = 'hidden';
+        document.getElementById("rating").value = "dislike";
+        document.getElementById("has_started_rating").value = "True";
+        document.ratingForm.method = "POST";
+        document.ratingForm.submit();
+        document.ratingForm.method = "GET";
+        }, 1500)
+
   return false;
 });
 });
@@ -74,6 +99,24 @@ $(function() {
   return false;
 });
 });
+
+//show tour only on first rating functionality
+if (document.querySelector('#tour').style.display != 'none') {
+  if ({{num_rated}} == 0) {
+    document.getElementById("tour").style.display = "block";
+  } else if ({{num_rated}} == 1){
+    $('#tour').fadeOut();
+  } else {
+    document.querySelector('#tour').style.display = 'none';
+  }
+}
+
+// fade out whole page after rating page before results page
+window.onbeforeunload = function (e) {
+  $('html').fadeOut();
+  //document.getElementById('movie_poster').className = 'fade-out';
+}
+
 </script>
 
 {% endblock content %}
