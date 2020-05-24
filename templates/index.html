@@ -80,22 +80,32 @@
 
  $(function() {
     $('a#unseen').bind('click', function() {
-      document.getElementById("rating").value = "unseen";
-      document.getElementById("has_started_rating").value = "True";
-      document.ratingForm.method = "POST";
-      document.ratingForm.submit();
-      document.ratingForm.method = "GET";
+      document.getElementById('movie_poster').className = 'fade-out';
+
+      setTimeout(() =>{
+        document.querySelector('#movie_poster').style.visibility = 'hidden';
+        document.getElementById("rating").value = "unseen";
+        document.getElementById("has_started_rating").value = "True";
+        document.ratingForm.method = "POST";
+        document.ratingForm.submit();
+        document.ratingForm.method = "GET";
+        }, 1500)
   return false;
 });
 });
 
 $(function() {
     $('a#like').bind('click', function() {
-      document.getElementById("rating").value = "like";
-      document.getElementById("has_started_rating").value = "True";
-      document.ratingForm.method = "POST";
-      document.ratingForm.submit();
-      document.ratingForm.method = "GET";
+      document.getElementById('movie_poster').className = 'fade-out';
+     
+      setTimeout(() =>{
+        document.querySelector('#movie_poster').style.visibility = 'hidden';
+        document.getElementById("rating").value = "like";
+        document.getElementById("has_started_rating").value = "True";
+        document.ratingForm.method = "POST";
+        document.ratingForm.submit();
+        document.ratingForm.method = "GET";
+        }, 1500)
   return false;
 });
 });
