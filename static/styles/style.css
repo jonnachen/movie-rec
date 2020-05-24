@@ -33,49 +33,17 @@ a {
   text-decoration: none;
 }
 
-a.logo span {
-  /* anti-link styling */
-  color: black;
-
-  /* decoration */
-  font-weight: 700;
-  font-size: 50px;
-}
-
 .logo {
   display: inline-block;
   position: relative;
-  margin: 20px;
+  margin: 10px;
   margin-bottom: 0px;
 
   padding: 5px 22px 0px 22px;
-  transition: all 0.2s ease;
 }
 
-.logo:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  border-radius: 28px;
-  background: rgba(171, 216, 250, 0.5);
-  width: 65px;
-  height: 65px;
-  transition: all 0.3s ease;
-}
-.logo span {
-  position: relative;
-  vertical-align: middle;
-}
-
-.logo:hover:before {
-  width: 100%;
-  background: rgba(171, 216, 250, 0.8);
-}
-
-.logo:active {
-  transform: scale(0.96);
+.logo img {
+  width: 250px;
 }
 
 /* index loading page exclusive styles */
