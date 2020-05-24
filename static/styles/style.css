@@ -262,7 +262,7 @@ button:active{
   display: flex;
   flex-direction: row;
   width: 900px;
-  margin: 30px auto 10px auto;
+  margin: 5px auto 10px auto;
 }
 
 #result_info {
@@ -273,8 +273,55 @@ button:active{
 }
 
 #result_display #movie-link {
-  width: 450px;
+  position: relative;
+  text-align: center;
 }
+img#movie_poster {
+  transition: 0.5s ease;
+}
+.overlay {
+  /* positioning */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate (-50%, -50%);
+
+  /* sizing */
+  width: 75%;
+  height: auto;
+
+  /* styling */
+  text-align: center;
+  color: #737373;
+  font-size: 25px;
+  font-weight: 700;
+
+  /* animating */
+  opacity: 0;
+  transition: 0.5s ease;
+
+}
+
+a#movie-link:hover .overlay {
+  opacity: 1;
+  transform: translate(-50%, -60%);
+  -ms-transform: translate (-50%, -60%);
+}
+
+a#movie-link:hover img#movie_poster {
+  transform: translate(0, -10px);
+  opacity: 0.2;
+}
+
+/*    
+    <a id="movie-link" href="https://www.themoviedb.org/movie/{{result.id}}" target="_blank">
+      <img id="movie_poster" src="https://image.tmdb.org/t/p/w500/{{result.poster_path}}" alt="movie poster" />
+      <div class="overlay">
+        <div class="text">click here for more information</div>
+      </div>
+    </a>
+
 
 #result_display #movie_poster{
   -webkit-transition: 0.5s ease-in-out;
@@ -282,15 +329,7 @@ button:active{
   -o-transition: 0.5s ease-in-out;
   transition: 0.5s ease-in-out;
 }
-
-#result_display #movie_poster:hover {
-  -webkit-transform: translate(0,-10px);
-  -moz-transform: translate(0,-10px);
-  -o-transform: translate(0,-10px);
-  -ms-transform: translate(0,-10px);
-  opacity: 0.5;
-  transform: translate(0,-10px);
-}
+*/
 
 #result_display #movie_poster {
   width: 425px;
