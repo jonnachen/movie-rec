@@ -1,4 +1,4 @@
-<img src="static/images/logo.png" width="300">
+<img src="static/images/logo-white.png" width="300">
 
 ## Summary 
 movieRec is a recommendation web application created from scratch for Code With Friends 2020. It uses a 'tinder'-based approach to gather ratings for movies, and displays a movie based on a basic recommendation algorithm.
