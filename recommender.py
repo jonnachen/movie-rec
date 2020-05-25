@@ -87,18 +87,26 @@ class Recommender:
                 else:
                     combine_recs[ele.id] = -1
 
-        result_id = max(combine_recs, key=combine_recs.get)
+        results = []
+        for _ in range(1, 6):
+            # find result_id with the largest approval int
+            result_id = max(combine_recs, key=combine_recs.get)
 
-        # get data using API
-        response = requests.get("https://api.themoviedb.org/3/movie/" + str(
-            result_id) + "?api_key=3dbf9b55bdf367747f40974789edbff7&language=en-US")
+            # remove this key:value from list of recs
+            del combine_recs[result_id]
 
-        # convert data to dictionary
-        dictionary = json.loads(response.text)
+            # get data using API
+            response = requests.get("https://api.themoviedb.org/3/movie/" + str(
+                result_id) + "?api_key=3dbf9b55bdf367747f40974789edbff7&language=en-US")
 
-        # create movie object
-        result = Movie(dictionary)
-        print("was recommended this many times:")
-        print(combine_recs[result_id])
+            # convert data to dictionary
+            dictionary = json.loads(response.text)
 
-        return result
+            # create movie object
+            result = Movie(dictionary)
+
+            results.append(result)
+
+        print("top five results")
+        print(results)
+        return results

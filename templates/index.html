@@ -40,31 +40,42 @@
   </form>
 </div>
 
-<div class="container">
-  <div id="load"></div>
+<div class="loading-extend1">
+  <div class="container">
+    <div id="load"></div>
+  </div>
 </div>
 
-<div class="container">
-  <div id="loading" class="endloading"><img src="{{url_for('static', filename='images/result_loading.gif')}}"
-      alt="loading gif" /></div>
+<div class="loading-extend2">
+  <div class="container">
+    <div id="loading" class="endloading"><img src="{{url_for('static', filename='images/result_loading.gif')}}"
+        alt="loading gif" /></div>
+  </div>
 </div>
+
+<!-- footer -->
+<p class="footer" id="credit">movieRec created by <a href="http://www.jonnachen.com">Jonna Chen</a>.</p>
+
 
 <script type=text/javascript>
       document.querySelector('.endloading').style.display = 'none';
+      document.querySelector('.loading-extend2').style.display = 'none';
+      document.querySelector('.loading-extend1').style.display = 'none';  
 
       // loading screen functionality
       if ({{num_rated}} == 0){
         document.querySelector('.index-content').style.display = 'none';
         document.querySelector('.logo').style.display = 'none';
+        document.querySelector('.loading-extend1').style.display = 'block';  
         document.getElementById('load').classList.add('loader');
 
         setTimeout(() =>{
-          document.getElementById('load').classList.remove('loader');
+          document.getElementById('load').classList.remove('loader');     
           document.querySelector('.index-content').style.display = 'block';
+          document.querySelector('.loading-extend1').style.display = 'none';  
           document.querySelector('.logo').style.display = 'inline-block';
         }, 2000)
       }
-
 
 // button functionality
   $(function() {
@@ -131,6 +142,7 @@ if (document.querySelector('#tour').style.display != 'none') {
 window.onbeforeunload = function (e) {
   $('.index-content').fadeOut();
   $('.logo').fadeOut();
+  document.querySelector('.loading-extend2').style.display = 'block';
   $('#loading').fadeIn();
 
 }

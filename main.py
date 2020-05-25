@@ -166,14 +166,23 @@ def results():
         return redirect(url_for('to404'))
 
     try:
-        # below is currently for front-end purposes
-        # result = choose_unique_film()
-        # percent_match = "86%"
-
+        # create recommender object
         recommender = Recommender(personal_ratings)
-        suggested_result = recommender.get_result()
-        release_year = suggested_result.release_date[0:4]
-        return render_template('results.html', title="Results", result=suggested_result, release_year=release_year)
+
+        # get array of five results
+        results = recommender.get_result()
+
+        # store first result
+        first_result = results.pop(0)
+
+        # store first result release year
+        first_result_year = first_result.release_date[0:4]
+
+        return render_template('results.html',
+                               title="Results",
+                               first_result=first_result,
+                               first_result_year=first_result_year,
+                               results=results)
 
     except Exception as e:
         print(e)

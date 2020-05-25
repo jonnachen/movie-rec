@@ -14,7 +14,7 @@ body {
 h1 {
   color: #737373;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 h3 {
@@ -22,10 +22,21 @@ h3 {
   font-size: 18px;
 }
 
+h4 {
+  font-weight: 300;
+  color: #737373;
+  font-size: 24px;
+}
+
 p {
   color: #737373;
   line-height: 200%;
   font-size: 17px;
+}
+
+.highlight {
+  font-size: 40px;
+  background: linear-gradient(180deg,rgba(255,255,255,0) 50%, rgba(145, 207, 255, 0.5) 50%);
 }
 
 /* logo styling */
@@ -47,6 +58,16 @@ a {
 }
 
 /* index loading page exclusive styles */
+.loading-extend1 {
+  width: 100%;
+  height: calc(100vh - 30px);
+}
+
+.loading-extend2 {
+  width: 100%;
+  height: calc(100vh - 30px);
+}
+
 .container {
   width: 100%;
   display: flex;
@@ -322,7 +343,6 @@ a#movie-link:hover img#movie_poster {
 }
 
 #result_info h1 {
-  margin-bottom: 20px;
   margin-top: 20px;
 }
 
@@ -337,6 +357,67 @@ a#movie-link:hover img#movie_poster {
   place-items: center;
   text-align: center;
   font-size: 30px;
+}
+
+#result_info h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#more-results {
+  width: 900px;
+  margin: 5px auto 10px auto;
+}
+
+#more-results h1 {
+  margin: 30px 0px 15px 0px;
+}
+
+.list-view-container {
+  margin-bottom: 15px;
+  position: relative;
+  width: 100%;
+  transition: 0.5s ease;
+}
+
+.list-view-container:hover{
+  transform: translate(0, -5px);
+  opacity: 0.7;
+}
+
+.list-view-content {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.list-view-container img {
+  width: 100%;
+}
+
+.list-view-content img#poster {
+  width: 90px;
+  margin: 5px 0px;
+  height: auto;
+  display: block;
+  border-radius: 7%;
+}
+
+.list-view-text {
+  flex-direction: column;
+  height: 100%;
+  width: 90%;
+  padding-left: 10px;
+}
+
+.list-view-text h1 {
+  margin: 0px;
 }
 
 /* 404 exclusive styling */
@@ -374,12 +455,13 @@ a#movie-link:hover img#movie_poster {
 }
 
 /* credit */
-p#credit{
+#credit{
   /* positioning */
   bottom: 0;
-  margin-top: 10px;
+  left: 0;
+  margin-top: 5px;
   display: block;
-  position: absolute;
+  position: fixed;
 
   /* sizing*/
   width: 100%;
@@ -391,13 +473,17 @@ p#credit{
   font-size: 14px;
 }
 
-p#credit a {
+#credit a {
   color: rgb(145, 207, 255);
   transition: filter .3s;
 }
 
-p#credit a:hover{
+#credit a:hover{
   filter: brightness(115%);
+}
+
+.result_footer#credit {
+  position: static;
 }
 
 /* RESPONSIVENESS STYLING */
