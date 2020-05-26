@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import json
 import random
 import requests
-from movie import Movie
 from recommender import Recommender
 from user import User
 import os
@@ -23,6 +22,7 @@ discover = "/discover/movie/?api_key=" + \
 
 # entire list of movie objects
 movie_lib = []
+
 
 # return api_url
 
@@ -46,7 +46,15 @@ for page in range(1, 11):
 
     # store all dictionaries as movies in movie_lib
     for movie_dict in discover_movies:
-        movie_lib.append(Movie(movie_dict))
+        movie_lib.append({
+            "popularity": movie_dict["popularity"],
+            "poster_path": movie_dict["poster_path"],
+            "id": movie_dict["id"],
+            "original_title": movie_dict["original_title"],
+            "title": movie_dict["title"],
+            "overview": movie_dict["overview"],
+            "release_date": movie_dict["release_date"]
+        })
 
 # store rated movies here in the form [[rated_movie, rating]]
 # example: [[<movie.Movie object at 0x10d76e110>, 'like'],
@@ -59,7 +67,7 @@ for page in range(1, 11):
 # [<movie.Movie object at 0x10e5e15d0>, 'dislike'],
 # [<movie.Movie object at 0x10e61e650>, 'like'],
 # [<movie.Movie object at 0x10e61e590>, 'dislike']]
-#personal_ratings = []
+# personal_ratings = []
 
 # list of all movies rated
 # example: [<movie.Movie object at 0x10551c190>,
@@ -72,25 +80,25 @@ for page in range(1, 11):
 # <movie.Movie object at 0x1055b5450>,
 # <movie.Movie object at 0x1055b1e90>,
 # <movie.Movie object at 0x1055a57d0>]
-#rated_history = []
+# rated_history = []
 # TO-DO: empty this list each time app is restarted?
 
 # number of movies rated so far
-#num_rated = 0
+# num_rated = 0
 
 # boolean for tracking if movies have started to be rated
-#has_started_rating = False
+# has_started_rating = False
 
 # return a movie that has not yet been rated
 
 
-def choose_unique_film(user):
+def choose_unique_film(rated_history):
     unique = False
     while (not unique):
         exists = False
         random_movie = random.choice(movie_lib)
-        for rated in user.rated_history:
-            if (random_movie == rated) and (random_movie.poster_path != None):
+        for rated in rated_history:
+            if (random_movie == rated) and (random_movie["poster_path"] != None):
                 exists = True
         if exists == False:
             unique = True
@@ -100,9 +108,9 @@ def choose_unique_film(user):
 # iterates through rated_history and returns movie object
 
 
-def get_movie(id, user):
-    for movie in user.rated_history:
-        if movie.id == int(id):
+def get_movie(id, rated_history):
+    for movie in rated_history:
+        if movie["id"] == int(id):
             return movie
 
 
@@ -115,12 +123,16 @@ def check_ten(personal_ratings, num_rated):
 def check_personal_ratings(personal_ratings):
     not (personal_ratings == [])
 
+
 # routing
 
 # route try_again
 @app.route('/try_again')
 def try_again():
-    session["USER"] = User()
+    session["personal_ratings"] = []
+    session["rated_history"] = []
+    session["num_rated"] = 0
+    session["has_started_rating"] = False
     return redirect(url_for('main'))
 
 
@@ -129,10 +141,13 @@ def try_again():
 def main():
 
     # if session is empty, create a user
-    if not "USER" in session:
-        session["USER"] = User()
+    if session == {}:
+        session["personal_ratings"] = []
+        session["rated_history"] = []
+        session["num_rated"] = 0
+        session["has_started_rating"] = False
 
-    if request.method == 'POST'and session["USER"].has_started_rating:
+    if request.method == 'POST'and session["has_started_rating"]:
         # movie was rated via form
 
         # gather data from form
@@ -142,23 +157,23 @@ def main():
         print(rating)
 
         if (rating == 'like' or rating == 'dislike'):
-            session["USER"].personal_ratings.append(
-                [get_movie(rated_movie_id), rating])
+            session["personal_ratings"].append(
+                [get_movie(rated_movie_id, session["rated_history"]), rating])
             print("num_rated was incremented - in the if statement")
-            session["USER"].num_rated += 1
+            session["num_rated"] += 1
 
-    if check_ten(session["USER"].personal_ratings, session["USER"].num_rated):
+    if check_ten(session["personal_ratings"], session["num_rated"]):
         return redirect(url_for('results'))
 
     # get a random + unique movie from movie list
-    random_movie = choose_unique_film()
+    random_movie = choose_unique_film(session["rated_history"])
 
     # add to the history of movies that have been shown so far
-    session["USER"].rated_history.append(random_movie)
+    session["rated_history"].append(random_movie)
 
-    has_started_rating = True
+    session["has_started_rating"] = True
 
-    return render_template('index.html', movie=random_movie, num_rated=session["USER"].num_rated)
+    return render_template('index.html', movie=random_movie, num_rated=session["num_rated"])
 
 
 # routing to results page
@@ -166,12 +181,12 @@ def main():
 def results():
 
     # if personal_rating list is empty, reroute to 404 page
-    if check_personal_ratings(session["USER"].personal_ratings):
+    if check_personal_ratings(session["personal_ratings"]):
         return redirect(url_for('to404'))
 
     try:
         # create recommender object
-        recommender = Recommender(session["USER"].personal_ratings)
+        recommender = Recommender(session["personal_ratings"])
 
         # get array of five results
         results = recommender.get_result()
@@ -180,8 +195,8 @@ def results():
         first_result = results.pop(0)
 
         # store first result release year
-        first_result_year = first_result.release_date[0:4]
-
+        first_result_year = (first_result["release_date"])[0: 4]
+        print(first_result)
         return render_template('results.html',
                                title="Results",
                                first_result=first_result,
@@ -206,4 +221,4 @@ def to404():
 
 if __name__ == '__main__':
     # if code is changed, the web app will automatically reload
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True)

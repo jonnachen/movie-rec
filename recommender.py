@@ -1,6 +1,5 @@
 import requests
 import json
-from movie import Movie
 
 
 class Recommender:
@@ -25,7 +24,7 @@ class Recommender:
 
     # takes in a Movie object and returns a list of recommended Movie objects
     def get_recommended(self, movie):
-        movie_id = movie.id
+        movie_id = movie["id"]
 
         recommended = []
 
@@ -40,8 +39,17 @@ class Recommender:
             # get list of dictionaries of movies
             rec_movies = dictionary["results"]
 
+            # add movies as dictionaries to recommended list
             for movie in rec_movies:
-                recommended.append(Movie(movie))
+                recommended.append({
+                    "popularity": movie["popularity"],
+                    "poster_path": movie["poster_path"],
+                    "id": movie["id"],
+                    "original_title": movie["original_title"],
+                    "title": movie["title"],
+                    "overview": movie["overview"],
+                    "release_date": movie["release_date"]
+                })
 
         return recommended
 
@@ -71,21 +79,21 @@ class Recommender:
 
         for each_rec_list in recommended_lists:
             for ele in each_rec_list:
-                if (ele.id in combine_recs):
-                    current_val = combine_recs[ele.id]
-                    del combine_recs[ele.id]
-                    combine_recs[ele.id] = current_val+1
+                if (ele["id"] in combine_recs):
+                    current_val = combine_recs[ele["id"]]
+                    del combine_recs[ele["id"]]
+                    combine_recs[ele["id"]] = current_val+1
                 else:
-                    combine_recs[ele.id] = 1
+                    combine_recs[ele["id"]] = 1
 
         for each_unrec_list in not_recommended_lists:
             for ele in each_unrec_list:
-                if (ele.id in combine_recs):
-                    current_val = combine_recs[ele.id]
-                    del combine_recs[ele.id]
-                    combine_recs[ele.id] = current_val-1
+                if (ele["id"] in combine_recs):
+                    current_val = combine_recs[ele["id"]]
+                    del combine_recs[ele["id"]]
+                    combine_recs[ele["id"]] = current_val-1
                 else:
-                    combine_recs[ele.id] = -1
+                    combine_recs[ele["id"]] = -1
 
         results = []
         for _ in range(1, 6):
@@ -103,7 +111,15 @@ class Recommender:
             dictionary = json.loads(response.text)
 
             # create movie object
-            result = Movie(dictionary)
+            result = {
+                "popularity": dictionary["popularity"],
+                "poster_path": dictionary["poster_path"],
+                "id": dictionary["id"],
+                "original_title": dictionary["original_title"],
+                "title": dictionary["title"],
+                "overview": dictionary["overview"],
+                "release_date": dictionary["release_date"]
+            }
 
             results.append(result)
 

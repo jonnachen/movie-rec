@@ -1,3 +1,6 @@
+from json import JSONEncoder
+
+
 class Movie:
     def __init__(self, movie_dict):
         self.popularity = movie_dict["popularity"]
@@ -13,3 +16,8 @@ class Movie:
         self.vote_average = movie_dict["vote_average"]
         self.overview = movie_dict["overview"]
         self.release_date = movie_dict["release_date"]
+
+
+class MovieEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__
