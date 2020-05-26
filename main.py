@@ -139,12 +139,12 @@ def main():
         # gather data from form
         rated_movie_id = request.form.get('movie_id_rated')
         rating = request.form.get('rating')
-
-        print("the movie this rating was given was")
+        print("rating given was")
         print(rating)
 
         if (rating == 'like' or rating == 'dislike'):
             personal_ratings.append([get_movie(rated_movie_id), rating])
+            print("num_rated was incremented - in the if statement")
             num_rated += 1
 
     if check_ten(personal_ratings, num_rated):
