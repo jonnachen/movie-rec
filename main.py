@@ -4,8 +4,6 @@ import json
 import random
 import requests
 from recommender import Recommender
-from user import User
-import os
 
 # instance of flask class
 app = Flask(__name__)
@@ -22,7 +20,6 @@ discover = "/discover/movie/?api_key=" + \
 
 # entire list of movie objects
 movie_lib = []
-
 
 # return api_url
 
@@ -55,39 +52,6 @@ for page in range(1, 11):
             "overview": movie_dict["overview"],
             "release_date": movie_dict["release_date"]
         })
-
-# store rated movies here in the form [[rated_movie, rating]]
-# example: [[<movie.Movie object at 0x10d76e110>, 'like'],
-# [<movie.Movie object at 0x10e671f10>, 'dislike'],
-# [<movie.Movie object at 0x10e661150>, 'like'],
-# [<movie.Movie object at 0x10e66c6d0>, 'dislike'],
-# [<movie.Movie object at 0x10e5f5110>, 'like'],
-# [<movie.Movie object at 0x10e66c2d0>, 'dislike'],
-# [<movie.Movie object at 0x10e65bb10>, 'like'],
-# [<movie.Movie object at 0x10e5e15d0>, 'dislike'],
-# [<movie.Movie object at 0x10e61e650>, 'like'],
-# [<movie.Movie object at 0x10e61e590>, 'dislike']]
-# personal_ratings = []
-
-# list of all movies rated
-# example: [<movie.Movie object at 0x10551c190>,
-# <movie.Movie object at 0x105578950>,
-# <movie.Movie object at 0x105578990>,
-# <movie.Movie object at 0x105588490>,
-# <movie.Movie object at 0x1055939d0>,
-# <movie.Movie object at 0x105591d50>,
-# <movie.Movie object at 0x1055787d0>,
-# <movie.Movie object at 0x1055b5450>,
-# <movie.Movie object at 0x1055b1e90>,
-# <movie.Movie object at 0x1055a57d0>]
-# rated_history = []
-# TO-DO: empty this list each time app is restarted?
-
-# number of movies rated so far
-# num_rated = 0
-
-# boolean for tracking if movies have started to be rated
-# has_started_rating = False
 
 # return a movie that has not yet been rated
 
@@ -153,13 +117,10 @@ def main():
         # gather data from form
         rated_movie_id = request.form.get('movie_id_rated')
         rating = request.form.get('rating')
-        print("rating given was")
-        print(rating)
 
         if (rating == 'like' or rating == 'dislike'):
             session["personal_ratings"].append(
                 [get_movie(rated_movie_id, session["rated_history"]), rating])
-            print("num_rated was incremented - in the if statement")
             session["num_rated"] += 1
 
     if check_ten(session["personal_ratings"], session["num_rated"]):
@@ -196,7 +157,6 @@ def results():
 
         # store first result release year
         first_result_year = (first_result["release_date"])[0: 4]
-        print(first_result)
         return render_template('results.html',
                                title="Results",
                                first_result=first_result,

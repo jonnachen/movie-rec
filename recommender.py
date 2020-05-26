@@ -110,7 +110,7 @@ class Recommender:
             # convert data to dictionary
             dictionary = json.loads(response.text)
 
-            # create movie object
+            # create movie dictionary
             result = {
                 "popularity": dictionary["popularity"],
                 "poster_path": dictionary["poster_path"],
@@ -123,6 +123,4 @@ class Recommender:
 
             results.append(result)
 
-        print("top five results")
-        print(results)
         return results
