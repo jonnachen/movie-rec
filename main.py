@@ -1,14 +1,18 @@
 # imports
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import json
 import random
 import requests
 from movie import Movie
 from recommender import Recommender
+from user import User
 import os
 
 # instance of flask class
 app = Flask(__name__)
+
+# secret key
+app.config["SECRET_KEY"] = 'By-jy9JI9TVojxj2gT45Zg'
 
 # TMDB API
 api_key = "3dbf9b55bdf367747f40974789edbff7"
@@ -55,7 +59,7 @@ for page in range(1, 11):
 # [<movie.Movie object at 0x10e5e15d0>, 'dislike'],
 # [<movie.Movie object at 0x10e61e650>, 'like'],
 # [<movie.Movie object at 0x10e61e590>, 'dislike']]
-personal_ratings = []
+#personal_ratings = []
 
 # list of all movies rated
 # example: [<movie.Movie object at 0x10551c190>,
@@ -68,24 +72,24 @@ personal_ratings = []
 # <movie.Movie object at 0x1055b5450>,
 # <movie.Movie object at 0x1055b1e90>,
 # <movie.Movie object at 0x1055a57d0>]
-rated_history = []
+#rated_history = []
 # TO-DO: empty this list each time app is restarted?
 
 # number of movies rated so far
-num_rated = 0
+#num_rated = 0
 
 # boolean for tracking if movies have started to be rated
-has_started_rating = False
+#has_started_rating = False
 
 # return a movie that has not yet been rated
 
 
-def choose_unique_film():
+def choose_unique_film(user):
     unique = False
     while (not unique):
         exists = False
         random_movie = random.choice(movie_lib)
-        for rated in rated_history:
+        for rated in user.rated_history:
             if (random_movie == rated) and (random_movie.poster_path != None):
                 exists = True
         if exists == False:
@@ -96,8 +100,8 @@ def choose_unique_film():
 # iterates through rated_history and returns movie object
 
 
-def get_movie(id):
-    for movie in rated_history:
+def get_movie(id, user):
+    for movie in user.rated_history:
         if movie.id == int(id):
             return movie
 
@@ -116,26 +120,21 @@ def check_personal_ratings(personal_ratings):
 # route try_again
 @app.route('/try_again')
 def try_again():
-    global personal_ratings
-    global rated_history
-    global num_rated
-    global has_started_rating
-    personal_ratings = []
-    rated_history = []
-    num_rated = 0
-    has_started_rating = False
+    session["USER"] = User()
     return redirect(url_for('main'))
 
 
 # routing to main page
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    global has_started_rating
 
-    if request.method == 'POST'and has_started_rating:
+    # if session is empty, create a user
+    if not "USER" in session:
+        session["USER"] = User()
+
+    if request.method == 'POST'and session["USER"].has_started_rating:
         # movie was rated via form
 
-        global num_rated
         # gather data from form
         rated_movie_id = request.form.get('movie_id_rated')
         rating = request.form.get('rating')
@@ -143,22 +142,23 @@ def main():
         print(rating)
 
         if (rating == 'like' or rating == 'dislike'):
-            personal_ratings.append([get_movie(rated_movie_id), rating])
+            session["USER"].personal_ratings.append(
+                [get_movie(rated_movie_id), rating])
             print("num_rated was incremented - in the if statement")
-            num_rated += 1
+            session["USER"].num_rated += 1
 
-    if check_ten(personal_ratings, num_rated):
+    if check_ten(session["USER"].personal_ratings, session["USER"].num_rated):
         return redirect(url_for('results'))
 
     # get a random + unique movie from movie list
     random_movie = choose_unique_film()
 
     # add to the history of movies that have been shown so far
-    rated_history.append(random_movie)
+    session["USER"].rated_history.append(random_movie)
 
     has_started_rating = True
 
-    return render_template('index.html', movie=random_movie, num_rated=num_rated)
+    return render_template('index.html', movie=random_movie, num_rated=session["USER"].num_rated)
 
 
 # routing to results page
@@ -166,12 +166,12 @@ def main():
 def results():
 
     # if personal_rating list is empty, reroute to 404 page
-    if check_personal_ratings(personal_ratings):
+    if check_personal_ratings(session["USER"].personal_ratings):
         return redirect(url_for('to404'))
 
     try:
         # create recommender object
-        recommender = Recommender(personal_ratings)
+        recommender = Recommender(session["USER"].personal_ratings)
 
         # get array of five results
         results = recommender.get_result()
