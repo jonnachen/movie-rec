@@ -1,5 +1,6 @@
 Flask==1.1.2
 Flask-WTF==0.14.3
+gunicorn==20.0.4
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.11.2
@@ -12,4 +13,4 @@ pyOpenSSL==19.1.0
 PySocks==1.7.1
 requests==2.22.0
 urllib3==1.25.8
-Werkzeug==1.0.1
+Werkzeug==1.0.
