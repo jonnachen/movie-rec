@@ -12,13 +12,8 @@ idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
-mkl-fft==1.0.15
-mkl-random==1.1.0
-mkl-service==2.3.0
-numpy==1.18.1
 olefile==0.46
 Pillow==7.1.2
-pip-check-reqs==2.0
 pycodestyle==2.5.0
 pycosat==0.6.3
 pycparser==2.19
