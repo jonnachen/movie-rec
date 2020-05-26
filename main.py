@@ -5,6 +5,7 @@ import random
 import requests
 from movie import Movie
 from recommender import Recommender
+import os
 
 # instance of flask class
 app = Flask(__name__)
@@ -139,6 +140,9 @@ def main():
         rated_movie_id = request.form.get('movie_id_rated')
         rating = request.form.get('rating')
 
+        print("the movie this rating was given was")
+        print(rating)
+
         if (rating == 'like' or rating == 'dislike'):
             personal_ratings.append([get_movie(rated_movie_id), rating])
             num_rated += 1
@@ -202,4 +206,4 @@ def to404():
 
 if __name__ == '__main__':
     # if code is changed, the web app will automatically reload
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
