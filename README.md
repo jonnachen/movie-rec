@@ -11,7 +11,7 @@ Initial designs for the website were created using [Canva](https://www.canva.com
 ### Home
 <img src="static/images/home-screenshot.png" width="500">
 
-### *esults
+### Results
 <img src="static/images/result-screenshot1.png" width="500">
 <img src="static/images/result-screenshot2.png" width="500">
 
