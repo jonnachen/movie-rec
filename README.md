@@ -1,7 +1,7 @@
 <img src="static/images/logo-white.png" width="300">
 
 ## Summary 
-[movieRec](https://movierec-cwf.herokuapp.com/) is a recommendation web application created from scratch for Code With Friends 2020 event. It uses a 'tinder'-based approach to gather ratings for movies, and displays a movie based on a basic recommendation algorithm. This concise rating-and-recommending approach allows a quick solution to the age-old question: "What movie should I watch tonight?"
+[movieRec](https://movierec-cwf.herokuapp.com/) is a recommendation web application created from scratch for Code With Friends 2020 event. It uses a 'tinder'-based approach to gather ratings for movies, and displays a movie based on a basic recommendation algorithm. This concise rating-and-recommending approach allows for a quick solution to the age-old question: "What movie should I watch tonight?"
 
 ### Find the finished product [here](https://movierec-cwf.herokuapp.com/).
 
