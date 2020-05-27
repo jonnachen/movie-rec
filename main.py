@@ -78,10 +78,8 @@ def get_movie(id, rated_history):
             return movie
 
 
-def check_ten(personal_ratings, num_rated):
-    print("number rated so far is:")
-    print(num_rated)
-    return (num_rated >= 10)
+def check_eight(personal_ratings, num_rated):
+    return (num_rated >= 8)
 
 
 def check_personal_ratings(personal_ratings):
@@ -93,10 +91,7 @@ def check_personal_ratings(personal_ratings):
 # route try_again
 @app.route('/try_again')
 def try_again():
-    session["personal_ratings"] = []
-    session["rated_history"] = []
-    session["num_rated"] = 0
-    session["has_started_rating"] = False
+    session.clear()
     return redirect(url_for('main'))
 
 
@@ -123,7 +118,7 @@ def main():
                 [get_movie(rated_movie_id, session["rated_history"]), rating])
             session["num_rated"] += 1
 
-    if check_ten(session["personal_ratings"], session["num_rated"]):
+    if check_eight(session["personal_ratings"], session["num_rated"]):
         return redirect(url_for('results'))
 
     # get a random + unique movie from movie list
