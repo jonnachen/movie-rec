@@ -146,7 +146,7 @@ a {
   top: 550px;
 }
 
-.tour_text#X span {
+span.x {
   color: #ff5757;
 }
 
@@ -164,7 +164,14 @@ a {
   top: 600px;
 }
 
-.tour_text#check span {
+.tour_text#instructions {
+  position: absolute;
+  z-index: 2;
+  left: 150px;
+  top: 300px;
+}
+
+span.check {
   color: #c9e265;
 }
 
@@ -172,6 +179,16 @@ a {
 #index-content {
   width: 100%;
   z-index :1;
+}
+
+.num_rated_tracker {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.num_rated_tracker p {
+  text-align: center;
 }
 
 #movie_poster {
